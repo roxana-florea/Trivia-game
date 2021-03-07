@@ -1,0 +1,14 @@
+body {
+  margin: 0;
+  font-family: "DotGothic16", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  background-color: #d6fa93;
+}
+
+h1,
+h2,
+p {
+  color: #ff4e8e;
+}
