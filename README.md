@@ -2,4 +2,4 @@
 
 # React Trivia game
 
-Play <a href="https://gallant-heyrovsky-938a3f.netlify.app/">here</a>
+Play <a href="https://gallant-heyrovsky-938a3f.netlify.app/" target="_blank">here</a>
