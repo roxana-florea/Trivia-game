@@ -6,25 +6,24 @@ import Final from "./components/Final";
 import TimesUp from "./components/TimesUp";
 import { shuffle } from "lodash";
 import click from "./components/audio/clicksoundeffect.mp3";
+import {Container} from './styled-components';
 
 var sound = new Audio(click);
 
 function App() {
   const [questions, getQuestions] = useState([]);
-  const [start, setStart] = useState(true);
+  const [gameStatus, setGameStatus] = useState('Start');
   const [chosenQuestion, setChosenQuestion] = useState([]);
   const [question, setQuestion] = useState("");
   const [answers, setAnswers] = useState([]);
   const [score, setScore] = useState(0);
   const [page, setPage] = useState(1);
-  const [gameOver, setGameOver] = useState(false);
   const [timerActive, setTimerActive] = useState(false);
-  const [counter, setCounter] = useState(10);
-
+  const [counter, setCounter] = useState(0);
  
     const fetchData = async () => {
       const result = await Axios(
-        "https://opentdb.com/api.php?amount=30&difficulty=easy&type=multiple"
+        "https://opentdb.com/api.php?amount=50&difficulty=easy&type=multiple"
       );
       getQuestions(result.data.results);
     };
@@ -40,30 +39,20 @@ function App() {
   };
 
   const startGame = () => {
-    setStart(false);
+    setGameStatus('Play');
     getOneQuestion();
     setTimerActive(true);
-    setCounter(10);
+    setCounter(15);
     playSound();
   };
 
   const getOneQuestion = () => {
-    const removeUselessChar = (str) =>
-      str
-        .split("&quot;")
-        .join("")
-        .split("&#039;")
-        .join("")
-        .split("&eacute;")
-        .join("")
-        .split("&amp")
-        .join("")
-        .split("&rsquo;")
-        .join("")
-        .split("&iacute;")
-        .join("");
-    const randomObject =
-      questions[Math.floor(Math.random() * questions.length)];
+    const removeUselessChar = (str) => {
+      const regex = /(?:&.{4,6})/g 
+      const newStr =  str.replace(regex,' ');
+      return newStr;
+    }
+    const randomObject = questions[Math.floor(Math.random() * questions.length)];
     const question = randomObject.question;
     const answers = [];
     answers.push(removeUselessChar(randomObject.correct_answer));
@@ -80,52 +69,51 @@ function App() {
       ? setScore(score + 1)
       : setScore(score + 0);
     setPage(page + 1);
+
     if (page === 15) {
-      setGameOver(true);
+      setGameStatus('GameOver');
       setTimerActive(false);
     }
     getOneQuestion();
-    setCounter(10);
+    setCounter(15);
     playSound();
   };
 
   const playAgain = () => {
     fetchData();
-    setStart(true);
+    setGameStatus('Start');
     setScore(0);
     setPage(1);
-    setGameOver(false);
     playSound();
   };
 
   useEffect(() => {
-    const timer =
-      counter > 0 &&
-      timerActive &&
+    const timer = counter > 0 && timerActive &&
       setInterval(() => setCounter(counter - 1), 1000);
     return () => clearInterval(timer);
   }, [counter, timerActive]);
 
   return (
-    <div>
-      {start ? (
-        <Start action={startGame} />
-      ) : (
-        !gameOver && (
+    <Container>
+       {
+         gameStatus === 'Start' &&
+         <Start action={startGame} />
+       }
+        {
+          gameStatus === 'Play'&&
           <Game
-            number={page}
-            question={question}
-            answers={answers}
-            isCorrect={isCorrect}
-            score={score}
-            timer={counter > 0 ? counter : <TimesUp action={isCorrect} />}
-          />
-        )
-      )}
-
-      {gameOver && <Final score={score} again={playAgain} />}
-    </div>
-  );
+          number={page}
+          question={question}
+          answers={answers}
+          isCorrect={isCorrect}
+          score={score}
+          timer={counter > 0 ? counter : <TimesUp action={isCorrect} />}
+        />
+        }
+        
+      {gameStatus === 'GameOver' && <Final score={score} again={playAgain} />}
+    </Container>
+  )
 }
 
 export default App;
