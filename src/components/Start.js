@@ -1,7 +1,7 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
 
-const Start = ({ action }) => {
+const Start = ({  action }) => {
   return (
     <>
       <h1>Welcome to Trivia Game!</h1>

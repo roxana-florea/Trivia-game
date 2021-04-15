@@ -5,6 +5,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   background-color: #d6fa93;
+  display: flex;
+  justify-content: center;
+  padding-top: 100px;
+  
 }
 
 h1,

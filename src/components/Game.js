@@ -1,21 +1,12 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
-import styled from "styled-components";
+import {Timer, Container} from '../styled-components';
+import { v4 as uuidv4 } from 'uuid';
 
-const Timer = styled.div`
-  font-size: 30px;
-  font-weight: bold;
-  color: #ff4e8e;
-`;
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
 
 const Game = ({ question, answers, isCorrect, number, score, timer }) => {
+
   return (
     <>
       <h2>
@@ -31,7 +22,8 @@ const Game = ({ question, answers, isCorrect, number, score, timer }) => {
               variant="outlined"
               size="medium"
               color="primary"
-              key={i}
+              key={uuidv4()}
+              disabled={timer > 0 ? false : true}
               onClick={() => isCorrect(i)}
             >
               {answer}
