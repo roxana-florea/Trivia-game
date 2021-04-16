@@ -9,7 +9,7 @@ Trivia game created with React hooks, styled components and Material UI buttons.
 * Choose one of the multiple choice answers
 * You have 15 seconds to answer each question
 * Each correct answer weights 1 point
-* After the time has expired and you didn't chose an answer you lost that point and can move on to the next question
+* After you ran out of time and you didn't chose an answer you lost that point and can move on to the next question
 
 ## Demo
 Play <a href="https://gallant-heyrovsky-938a3f.netlify.app/">here</a>
