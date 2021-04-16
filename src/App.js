@@ -49,7 +49,7 @@ function App() {
   const getOneQuestion = () => {
     const removeUselessChar = (str) => {
       const regex = /(?:&.{4,6})/g 
-      const newStr =  str.replace(regex,' ');
+      const newStr =  str.replace(regex,'');
       return newStr;
     }
     const randomObject = questions[Math.floor(Math.random() * questions.length)];
