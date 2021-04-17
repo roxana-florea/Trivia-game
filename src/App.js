@@ -44,7 +44,6 @@ function App() {
     setTimerActive(true);
     setCounter(15);
     playSound();
-    console.log(questions)
   };
 
   const getOneQuestion = () => {
