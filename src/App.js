@@ -4,7 +4,7 @@ import Start from "./components/Start";
 import Game from "./components/Game";
 import Final from "./components/Final";
 import TimesUp from "./components/TimesUp";
-import { shuffle } from "lodash";
+import { shuffle, random } from "lodash";
 import click from "./components/audio/clicksoundeffect.mp3";
 import {Container} from './styled-components';
 
@@ -52,7 +52,7 @@ function App() {
       const newStr =  str.replace(regex,'');
       return newStr;
     }
-    const randomObject = questions[Math.floor(Math.random() * questions.length)];
+    const randomObject = questions[random(questions.length)];
     const question = randomObject.question;
     const answers = [];
     answers.push(removeUselessChar(randomObject.correct_answer));
