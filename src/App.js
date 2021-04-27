@@ -47,7 +47,6 @@ function App() {
   };
   const removeUselessChar = str => str.replace(/(?:&.{4,6};)/g,'');
 
-
   const getOneQuestion = () => {
     const randomObject = questions[random(questions.length)];
     const question = randomObject.question;
