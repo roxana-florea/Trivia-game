@@ -6,7 +6,7 @@ import Final from "./components/Final";
 import TimesUp from "./components/TimesUp";
 import { shuffle, random } from "lodash";
 import click from "./components/audio/clicksoundeffect.mp3";
-import {Container} from './styled-components';
+import { Container } from './styled-components';
 
 var sound = new Audio(click);
 
@@ -45,13 +45,9 @@ function App() {
     setCounter(15);
     playSound();
   };
+  const removeUselessChar = str => str.replace(/(?:&.{4,6};)/g,'');
 
   const getOneQuestion = () => {
-    const removeUselessChar = (str) => {
-      const regex = /(?:&.{4,6};)/g 
-      const newStr =  str.replace(regex,'');
-      return newStr;
-    }
     const randomObject = questions[random(questions.length)];
     const question = randomObject.question;
     const answers = [];
@@ -100,7 +96,7 @@ function App() {
          <Start action={startGame} />
        }
         {
-          gameStatus === 'Play'&&
+          gameStatus === 'Play' &&
           <Game
           number={page}
           question={question}
